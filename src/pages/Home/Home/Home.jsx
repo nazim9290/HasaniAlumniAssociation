@@ -5,6 +5,7 @@ import AboutMadrasha from '../AboutMadrasha/AboutMadrasha'
 import Message from '../Message/Message'
 import Event from '../Event/Event'
 import SEO from '../../Shared/SEO/SEO'
+import Sponsre from '../../Shared/Sponsore/Sponsre'
 
 
 export default function Home() {
@@ -16,15 +17,7 @@ export default function Home() {
        <AboutMadrasha></AboutMadrasha>
        <Event></Event>
        <Message></Message>
-
-       <div>
-       <h4 style={{textAlign:"Center"}}>Sponsor </h4>
-      <img
-        width="100%"
-        src="https://i.ibb.co/2M2d9mw/Screenshot-5.png"
-        alt=""
-      />
-       </div>
+       <Sponsre image={"https://i.ibb.co/2M2d9mw/Screenshot-5.png"}></Sponsre>
     </div>
   )
 }
