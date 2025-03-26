@@ -1,0 +1,18 @@
+.about-section {
+    font-family: "Hind Siliguri", "Noto Sans Bengali", sans-serif;
+    background-image: linear-gradient(
+        to bottom,
+        rgba(89, 94, 107, 0.52),
+        rgba(90, 79, 79, 0.73)
+      ),
+      url("https://i.ibb.co/ysz2js9/mdback.png");
+    background-position: center;
+    background-size: cover;
+    color: white;
+    text-align: justify;
+    margin: 10px 0;
+    padding: 50px 0;
+  }
+  .about-section a {
+    color: white;
+  }

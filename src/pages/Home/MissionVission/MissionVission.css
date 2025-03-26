@@ -1,0 +1,19 @@
+.image-box {
+    width: 100%;
+    height: auto;
+    border-radius: 1%;
+    overflow: hidden;
+  }
+  .image-box img {
+    width: 100%;
+    height: auto;
+    border-radius: 1%;
+    transform: scale(1);
+    transition: transform 0.2s;
+  }
+  .image-box img:hover {
+    transform: scale(1.15);
+  }
+  .title-text{
+    text-align: center;
+  }

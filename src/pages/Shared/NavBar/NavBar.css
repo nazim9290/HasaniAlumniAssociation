@@ -1,0 +1,42 @@
+.navbar a {
+    text-decoration: none;
+    color: white;
+    margin-left: 15px;
+    font-weight: 700;
+    font-size: 20px;
+  }
+  
+  .title-name {
+    font-size: 30px;
+    text-align: center;
+    background-color: #dff9fb;
+    font-weight: 500;
+  }
+  
+  .menu-item a {
+    display: block;
+    text-decoration: none;
+    color: black;
+    margin-left: 15px;
+    font-size: 20px;
+  }
+  .navbar .logo {
+    background-color: white;
+    padding: 10px;
+    border-radius: 50%;
+  }
+  .res-logo {
+    background-color: white;
+    padding: 5px;
+    border-radius: 50%;
+  }
+  
+  @media screen and (max-width: 480px) {
+    .title-name {
+      font-size: 15px;
+      text-align: center;
+      background-color: #dff9fb;
+      padding: 5px 0;
+      font-weight: 900;
+    }
+  }
