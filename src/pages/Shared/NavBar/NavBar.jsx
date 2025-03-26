@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/logo.png";
-import "./Navbar.css";
+import "./NavBar.css";
 
 const pages = ["Home", "About", "Events", "Member", "Blogs"];
 const settings = ["Dashboard"];
