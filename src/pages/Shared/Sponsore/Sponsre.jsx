@@ -9,8 +9,9 @@ export default function Sponsre({image}) {
         width="100%"
         src={image}
         alt="sponsore"
+        height="300"
       />
-       </div>
+      </div>
     </div>
   )
 }

@@ -46,9 +46,11 @@ const AlumniStudent = () => {
                         sx={{
                             justifyContent: "center",
                             alignItems: "center",
+                            mt:2
                         }}
+                        
                     >
-                        <Card sx={{ maxWidth: 345 }}>
+                        <Card className="cardStyle">
                             <CardMedia
                                 component="img"
                                 image={member.picture}
@@ -57,8 +59,9 @@ const AlumniStudent = () => {
                                 height="200"
                             />
 
-                            <CardContent >
-                                <Typography gutterBottom variant="h6" component="div">
+                            <CardContent sx={{ textAlign: "center"}}
+                            >
+                                <Typography gutterBottom variant="body1" component="div">
                                     {member.fullName}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
@@ -111,7 +114,10 @@ const AlumniStudent = () => {
                 direction="row"
                 justifyContent="center"
                 alignItems="center"
-                spacing={2}>
+                spacing={2}
+                sx={{mt:5}}
+                >
+                
                 <Pagination count={10} variant="outlined" shape="rounded" />
             </Stack>
 

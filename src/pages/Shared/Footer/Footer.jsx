@@ -13,7 +13,7 @@ export default function Footer() {
           alignItems: 'center'}}>
       <img className="logo" src={logo} alt="logo" width="100" />
     </Box>
-    <Box sx={{ mx: 2 }}>
+    <Box sx={{ mx: .5 }}>
       <Grid container className="footer-item">
         <Grid item size={{ xs: 12, sm: 6 , md: 4 }}>
           <h4>Where We Are</h4>
@@ -24,7 +24,7 @@ export default function Footer() {
             loading="lazy"
           ></iframe>
         </Grid>
-        <Grid item size={{ xs: 3, sm: 6 , md: 3 }}>
+        <Grid item size={{ xs: 4, sm: 6 , md: 3 }}>
           <h4>Quick Links</h4>
           <Link to="Home">
             <i className="fas fa-angle-right"></i>Home
@@ -77,10 +77,10 @@ export default function Footer() {
           </Box>
         </Grid>
       </Grid>
-      <Divider variant="middle" color="white" sx={{ m:2 }} />
+      <Divider variant="middle" color="white" />
       <Box className="rights">
-        &copy; {new Date().getFullYear()} Hasania Alumni Association.All
-        Rights Reserved. Designed & Developed by NDP Tech Team
+        &copy; 2017 - {new Date().getFullYear()} Hasania Alumni Association.All
+        Rights Reserved. Designed & Developed by NDP Commerce Ltd (Guideline IT)Tech Team.
       </Box>
     </Box>
   </div>

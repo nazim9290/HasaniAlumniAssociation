@@ -7,3 +7,7 @@
   .team-social-icons i:hover {
     color: green;
   }
+  .cardStyle {
+    width: '30vw';
+    height: '30vh'
+}

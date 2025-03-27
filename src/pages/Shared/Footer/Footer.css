@@ -1,16 +1,17 @@
 .footer {
-    background-color: #152a3d;
+    background-color: #152f47;
     padding-bottom: 20px;
-    margin-top: 10px;
-    height: 75vh;
+    margin: 10px 0;
   }
   .footer h4 {
     text-align: start;
     font-size: 20px;
-    color: #0f75b0;
-    margin-left: 10px;
+    color: #749d9b;
+    margin: 10px auto;
   }
-  
+  .footer-item{
+    margin-bottom: 10px;
+  }
   .footer-item a {
     text-decoration: none;
     color: white;
@@ -19,14 +20,18 @@
     margin-left: 10px;
     margin-top: 5px;
   }
+  .footer-item i{
+   margin-right: 5px;
+  }
   .footer .logo {
     background-color: white;
-    margin-top: 10px;
+    margin-top: 5px;
     border-radius: 50%;
     padding: 10px;
   }
   .footer .rights {
+    margin-top: 5px;
     font-size: 14px;
-    color: lightgrey;
+    color: rgba(254, 252, 242, 0.866);
     text-align: center;
   }
