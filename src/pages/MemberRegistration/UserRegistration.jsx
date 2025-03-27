@@ -51,6 +51,7 @@ const UserRegistration = () => {
       linkedinUrl: data.linkedinUrl,
       status: data.status,
       place: data.place,
+      position: data.position,
       blood: data.blood,
       comments: data.comments,
     };
@@ -215,7 +216,7 @@ const UserRegistration = () => {
               <label>Current Status</label>
               <select {...register("status")}>
                 <option defaultValue>Select Current Status..</option>
-                <option value="Jon">Job</option>
+                <option value="Job">Job</option>
                 <option value="Enterpreneur">Enterpreneur</option>
                 <option value="Job Scker">Job Sceker</option>
                 <option value="Retired">Retired</option>
