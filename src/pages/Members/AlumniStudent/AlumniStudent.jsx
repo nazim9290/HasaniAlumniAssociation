@@ -65,7 +65,7 @@ const AlumniStudent = () => {
                                     {member.fullName}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    {member?.status} : {member?.position} at {member?.place}
+                                    {member?.status} at {member?.place}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
                                     Dakhil Year - {member.examYear}

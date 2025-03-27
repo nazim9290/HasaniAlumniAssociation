@@ -51,7 +51,7 @@ const UserRegistration = () => {
       linkedinUrl: data.linkedinUrl,
       status: data.status,
       place: data.place,
-      position: data.position,
+      //position: data.position,
       blood: data.blood,
       comments: data.comments,
     };
@@ -88,8 +88,7 @@ const UserRegistration = () => {
   return (
     <>
     <TitleBar titleText="Alumni Member Registration" />
-      <div className="member-form">
-
+      <div className="member-form watermark-container">
         <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
           <div className="container">
             <div>
@@ -109,7 +108,7 @@ const UserRegistration = () => {
             </div>
 
             <div>
-              <label style={{color:"red",fontWeight:"400"}}>
+              <label style={{color:"red",fontWeight:"400",fontSize:"12px"}}>
                 Member Profile Picture (use image less than 1MB and Recommended
                 Dimension 600px/600px, Recommended Image Type: JPEG/JPG/PNG )
                 <span className="required">*</span>
@@ -212,7 +211,7 @@ const UserRegistration = () => {
                 placeholder="https://www.linkedin.com/{userName}"
               />
             </div>
-            <div>
+            {/* <div>
               <label>Current Status</label>
               <select {...register("status")}>
                 <option defaultValue>Select Current Status..</option>
@@ -222,40 +221,12 @@ const UserRegistration = () => {
                 <option value="Retired">Retired</option>
                 <option value="Student">Student</option>
                 <option value="House Wife">House Wife</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Teacher">Teacher</option>
                 <option value="other">Other</option>
               </select>
-            </div>
-            <div>
-              <label>
-                Company or Institute name <span className="required">*</span>
-              </label>
-              <input
-                {...register("place", { required: true })}
-                placeholder="e.g Dhaka College / city bank "
-              />
-              {errors.place?.type === "required" && (
-                <p className="errors">
-                  {errors.place?.type === "required" &&
-                    "Work Place name is required"}
-                </p>
-              )}
-            </div>
-            <div>
-              <label>
-                Title Of Your Position <span className="required">*</span>
-              </label>
-              <input
-                {...register("position", { required: true })}
-                placeholder="e.g Student / manager / owner"
-              />
-              {errors.position?.type === "required" && (
-                <p className="errors">
-                  {errors.position?.type === "required" &&
-                    "your work position is required"}
-                </p>
-              )}
-            </div>
-            <div>
+            </div> */}
+             <div>
               <label>Blood Group</label>
               <select {...register("blood")}>
                 <option defaultValue>Select Blood Group..</option>
@@ -269,6 +240,32 @@ const UserRegistration = () => {
                 <option value="O-">O-</option>
               </select>
             </div>
+          
+            <div>
+              <label>
+                Title Of Your Position <span className="required"></span>
+              </label>
+              <input
+                {...register("status")}
+                placeholder="e.g Student/ manager/ owner/ teacher/ house wife/ job/ enterpreneur"
+              />
+            </div>
+            <div>
+              <label>
+                Company or Institute name <span className="required">if you house wife no need to input</span>
+              </label>
+              <input
+                {...register("place")}
+                placeholder="e.g Dhaka College/ city bank/ Uttor badda Kamil Madrasha"
+              />
+              {errors.place?.type === "required" && (
+                <p className="errors">
+                  {errors.place?.type === "required" &&
+                    "Work Place name is required"}
+                </p>
+              )}
+            </div>
+           
           </div>
           <div>
             <label>Comments / Questions:</label>

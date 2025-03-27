@@ -1,5 +1,19 @@
+.watermark-container {
+  position: relative;
+}
+.watermark-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("https://res.cloudinary.com/nazim929/image/upload/v1743100340/logo_cdfizi.png") repeat center;
+  opacity: 0.1; /* Adjust transparency */
+  pointer-events: none; /* Prevent interaction */
+}
 .member-form {
-    background: #94a8aa;
+    background: rgb(87, 122, 124);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
       "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
       sans-serif;
@@ -18,7 +32,7 @@
     color: white;
     text-align: center;
     padding-bottom: 10px;
-    border-bottom: 1px solid rgb(79, 98, 148);
+    border-bottom: 1px solid rgb(240, 39, 39);
   }
   
   .member-form p {
@@ -49,8 +63,8 @@
     margin-bottom: 13px;
     margin-top: 20px;
     color: white;
-    font-size: 14px;
-    font-weight: 800;
+    font-size: 20px;
+    font-weight: 700;
   }
   .member-form input[type="file"] {
     color: white;
@@ -67,6 +81,11 @@
     font-size: 16px;
     font-weight: 100;
     letter-spacing: 10px;
+  }
+  .member-form .required{
+    color: red;
+    font-size: 10px;;
+
   }
   
   .member-form button[type="submit"]:hover,
