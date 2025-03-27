@@ -46,14 +46,16 @@ export default function NavBar() {
         <Box
           sx={{
             display: "flex",
-            p: 1,
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <Box sx={{ flexGrow: 1, mr: 2 }}>
-            ❀๑▬▬๑﷽๑▬▬๑❀ <br /> হাজী মাদবর আলী হাচানিয়া দাখিল মাদ্রাসা প্রাক্তন
-            ছাত্র ছাত্রী পরিষদ
+          <Box sx={{ flexGrow: 1,height:"15vh"}}>
+            <small>❀๑▬▬๑﷽๑▬▬๑❀ </small> 
+            <br />
+            <small className="bangla-text">
+              হাজী মাদবর আলী হাচানিয়া দাখিল মাদ্রাসা অ্যালামনাই অ্যাসোসিয়েশন
+              </small>
           </Box>
           <a href="tel:01984467364">
             <AddIcCallRoundedIcon sx={{ mr: 1 }} color="primary" />
@@ -114,6 +116,7 @@ export default function NavBar() {
                 sx={{
                   display: { xs: "block", md: "none" },
                 }}
+               
               >
                 {pages.map((page) => (
                   <MenuItem key={page} onClick={handleCloseNavMenu}>

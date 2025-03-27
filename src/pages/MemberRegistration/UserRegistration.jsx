@@ -273,7 +273,7 @@ const UserRegistration = () => {
             <label>Comments / Questions:</label>
             <textarea style={{width:"100%"}} rows="5" {...register("comments")} />
           </div>
-          <button style={{margin:"20px auto"}}>Submit</button>
+          <button style={{margin:"10px auto"}}>Submit</button>
         </form>
       </div>
     </>
