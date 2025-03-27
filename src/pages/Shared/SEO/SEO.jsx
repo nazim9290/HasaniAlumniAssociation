@@ -29,7 +29,7 @@ const SEO = ({ title, description,image }) => {
 SEO.defaultProps = {
     title: "Hasania Alumni Association",
     description: "হাজী মাদবর আলী হাসানিয়া দাখিল মাদ্রাসার  প্রাক্তন ও বর্তমান ছাত্র-ছাত্রীদের মাঝে সেতু বন্ধন সৃষ্টির মধ্য দিয়ে এ কমিউনিকেশন নেটওয়ার্ক-কে অসাধারণ এক উচ্চ মাত্রায় নিয়ে যাওয়ার লক্ষ্য নিয়ে গঠন করা হয়েছে “হাজী মাদবর আলী হাচানিয়া দাখিল মাদ্রাসা অ্যালামনাই অ্যাসোসিয়েশন”।",
-    image: "https://i.ibb.co/Kzm5MQZz/punormiloni.jpg" 
+    image: "https://res.cloudinary.com/nazim929/image/upload/v1743070406/purnomilonilogo_ivmnw4_-_Post_sj2vy2.png" 
   };
 
 export default SEO;
