@@ -50,7 +50,7 @@ export default function NavBar() {
             alignItems: "center",
           }}
         >
-          <Box sx={{ flexGrow: 1,height:"15vh"}}>
+          <Box sx={{ flexGrow: 1}}>
             <small>❀๑▬▬๑﷽๑▬▬๑❀ </small> 
             <br />
             <small className="bangla-text">
@@ -136,7 +136,7 @@ export default function NavBar() {
               className="res-logo"
               noWrap
               component="div"
-              sx={{ flexGrow: 0, mr: 10, display: { xs: "flex", md: "none" } }}
+              sx={{ flexGrow: 0, mr:10, display: { xs: "flex", md: "none" } }}
             >
               <img src={logo} alt="" width="60" />
             </Typography>

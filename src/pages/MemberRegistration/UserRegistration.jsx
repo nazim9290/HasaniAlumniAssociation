@@ -111,7 +111,7 @@ const UserRegistration = () => {
               <label style={{color:"red",fontWeight:"400",fontSize:"12px"}}>
                 Member Profile Picture (use image less than 1MB and Recommended
                 Dimension 600px/600px, Recommended Image Type: JPEG/JPG/PNG )
-                <span className="required">*</span>
+                <span className="required">if you are a girl, use hijab</span>
               </label>
               <input
                 type="file"
@@ -154,7 +154,6 @@ const UserRegistration = () => {
                 <option defaultValue>select gender</option>
                 <option value="female">female</option>
                 <option value="male">male</option>
-                <option value="other">other</option>
               </select>
             </div>
             <div>
