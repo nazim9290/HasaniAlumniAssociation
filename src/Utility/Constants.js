@@ -1,1 +1,1 @@
-export const apiBaseUrl = "https://hasaniaalumnibackend.onrender.com";
+export const apiBaseUrl = "http://alumni-api.nihonelegant.com";

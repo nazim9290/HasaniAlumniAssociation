@@ -26,7 +26,7 @@ const AlumniStudent = ({ member }) => {
                 ? femalePic
                 : malePicture
     return (
-        <Card className="cardStyle">
+        <Card sx={{ height: "100%" }}>
             <CardMedia
                 component="img"
                 image={ProfilePicture}
@@ -40,9 +40,11 @@ const AlumniStudent = ({ member }) => {
                 <Typography gutterBottom variant="body1" component="div">
                     {member?.fullName}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+               {member?.status? (<Typography variant="body2" color="text.secondary">
                     {member?.status} at {member?.place}
-                </Typography>
+                </Typography>):(<Typography variant="body2" color="text.secondary">                   
+                     {member?.place}
+                </Typography>)}
                 <Typography variant="body2" color="text.secondary">
                     Dakhil Year - {member?.examYear}
                 </Typography>

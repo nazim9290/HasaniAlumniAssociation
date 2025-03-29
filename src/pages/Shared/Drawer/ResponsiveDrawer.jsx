@@ -15,9 +15,9 @@ export default function ResponsiveDrawer() {
           <MultipleSelectCheckmarks selectedValue={selectedValue} setSelectedValue={setSelectedValue} ></MultipleSelectCheckmarks>
         </Grid>
         <Grid size={{ xs: 6, sm: 6, md: 6 }}
-          direction="row"
-          sx={{
-            justifyContent: "flex-end",
+           sx={{
+            display: "flex",
+            justifyContent: "end",
             alignItems: "center",
           }}
         >

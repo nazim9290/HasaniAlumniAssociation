@@ -10,7 +10,6 @@ export default function SearchBar({ setSearchValue }) {
 
     <Paper
       component="form"
-       direction="row"
       sx={{ p: '2px 4px', width: '50%'}} >
       <InputBase
         sx={{ ml: 1, flex: 1 }}

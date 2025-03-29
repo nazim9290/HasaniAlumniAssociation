@@ -82,9 +82,9 @@ export default function NavBar() {
               noWrap
               component="div"
               color="inherit"
-              sx={{ mr: 10, ml: 5, mt:-3, display: { xs: "none", md: "flex" } }}
+              sx={{ mr: 10, ml: 10, mt:-3, display: { xs: "none", md: "flex" } }}
             >
-              <img src={logo} alt="" width="50" />
+              <img src={logo} alt="madrasha logo" width="50" />
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -145,7 +145,7 @@ export default function NavBar() {
               textalign="center"
               sx={{
                 flexGrow: "1",
-                mx: 10,
+                mx: 15,
                 display: { xs: "none", md: "flex" },
               }}
             >
