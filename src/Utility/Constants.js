@@ -1,1 +1,1 @@
-export const apiBaseUrl = "http://alumni-api.nihonelegant.com";
+export const apiBaseUrl = "https://alumni-api.nihonelegant.com";
