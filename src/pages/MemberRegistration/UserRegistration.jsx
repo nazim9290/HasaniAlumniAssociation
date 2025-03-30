@@ -1,42 +1,57 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-
-import "./Form.css";
-import TitleBar from "../Shared/TitleBar/TitleBar";
 import { apiBaseUrl } from "../../Utility/Constants";
+import {
+  TextField,
+  Tooltip,
+  IconButton,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
+  Button,
+  Box,
+  FormHelperText,
+} from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
+import TitleBar from "../Shared/TitleBar/TitleBar";
+import "./Form.css";
+import SweetAlert from "../../Component/SweetAlert/SweetAlert";
 
 const UserRegistration = () => {
   const [url, setUrl] = useState("");
   const [years, setYears] = useState([]);
   const navigate = useNavigate();
   const {
+    control,
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
 
+  // Image Upload
   const processFile = (e) => {
-    var image = e.target.files[0];
+    const image = e.target.files[0];
     const data = new FormData();
     data.append("file", image);
     data.append("upload_preset", "alumni");
     data.append("cloud_name", "dpakfnqvn");
+
     fetch("https://api.cloudinary.com/v1_1/dpakfnqvn/image/upload", {
       method: "post",
       body: data,
     })
       .then((resp) => resp.json())
-      .then((data) => {
-        setUrl(data.url);
-      })
+      .then((data) => setUrl(data.url))
       .catch((err) => console.log(err));
   };
 
-  const onSubmit = (data) => {
+  // Form Submission
+  const onSubmit = async (data) => {
     const userData = {
       picture: url,
       fullName: data.fullName,
@@ -51,7 +66,6 @@ const UserRegistration = () => {
       linkedinUrl: data.linkedinUrl,
       status: data.status,
       place: data.place,
-      //position: data.position,
       blood: data.blood,
       comments: data.comments,
     };
@@ -60,218 +74,289 @@ const UserRegistration = () => {
       .post(`${apiBaseUrl}/xStudent`, userData)
       .then((res) => {
         if (res.data.insertedId) {
-          Swal.fire({
-            icon: "success",
-            title: "Your Registration has been Successful",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          // Show success message
+          SweetAlert.success("Success", "Form submitted successfully!");
         }
         reset();
-        setTimeout(() => {
-          navigate("/");
-        }, 2000);
+        setTimeout(() => navigate("/Member"), 2000);
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      .catch((error) => console.error("Error:", error));
   };
 
   useEffect(() => {
-    var yearList = [];
+    const yearList = [];
     const year = new Date().getFullYear() + 1;
-    for (var i = 1990; i <= year; i++) {
+    for (let i = 1990; i <= year; i++) {
       yearList.push(i);
     }
     setYears(yearList);
   }, []);
+
   return (
     <>
-    <TitleBar titleText="Alumni Member Registration" />
-      <div className="member-form watermark-container">
-        <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
-          <div className="container">
-            <div>
-              <label>
-                Your Name <span className="required">*</span>
-              </label>
-              <input
-                {...register("fullName", { required: true })}
-                placeholder="Enter your full name"
-              />
-              {errors.fullName?.type === "required" && (
-                <p className="errors">
-                  {errors.fullName?.type === "required" &&
-                    "First name is required"}
-                </p>
-              )}
-            </div>
+      <TitleBar titleText="Alumni Member Registration" />
 
-            <div>
-              <label style={{color:"red",fontWeight:"400",fontSize:"12px"}}>
-                Member Profile Picture (use image less than 1MB and Recommended
-                Dimension 600px/600px, Recommended Image Type: JPEG/JPG/PNG )
-                <span className="required">if you are a girl, use hijab</span>
-              </label>
-              <input
-                type="file"
-                {...register("image", { required: true })}
-                onChange={processFile}
+      <div className="watermark-container">
+        <Box sx={{ maxWidth: "600px", margin: "auto", p: 3 }}>
+          <h4 style={{ textAlign: "center" }}>
+            Fill in the input information in English
+          </h4>
+          <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+            {/* Full Name */}
+            <Box className="divLayout">
+              <TextField
+                {...register("fullName", { required: true })}
+                label="Your Name"
+                variant="outlined"
+                fullWidth
+                error={!!errors.fullName}
+                helperText={errors.fullName && "Name is required"}
               />
-            </div>
-            <div>
-              <label>
-                Your Phone Number <span className="required">*</span>
-              </label>
-              <input
-                {...register("phone", { required: true })}
-                placeholder="Enter your Phone Number"
-              />
-              {errors.phone?.type === "required" && (
-                <p className="errors">
-                  {errors.phone?.type === "required" &&
-                    "Phone Number is required"}
-                </p>
-              )}
-            </div>
-            <div>
-              <label>
-                Your Email <span className="required">*</span>
-              </label>
-              <input
-                {...register("email", { required: true })}
-                placeholder="Enter your Email"
-              />
-              {errors.email?.type === "required" && (
-                <p className="errors">
-                  {errors.email?.type === "required" && "Email is required"}
-                </p>
-              )}
-            </div>
-            <div>
-              <label>Gender</label>
-              <select {...register("gender")} placeholder="select gender">
-                <option defaultValue>select gender</option>
-                <option value="female">female</option>
-                <option value="male">male</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="">
-                Select Your Dakhil Exam Year <span className="required">*</span>
-              </label>
-              <select
-                type="number"
-                {...register("examYear", { required: true })}
+              <Tooltip title="সার্টিফিকেট অনুযায়ী আপনার সম্পূর্ণ নাম লিখুন।">
+                <IconButton>
+                  <InfoIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+
+            {/* Profile Picture */}
+            <Box className="divLayout">
+              <Box>
+                <InputLabel sx={{ color: "red", fontSize: "12px" }}>
+                  Upload Profile Picture (Max 1MB, 600px x 600px, JPEG/JPG/PNG)
+                </InputLabel>
+
+                <input
+                  type="file"
+                  {...register("image")}
+                  onChange={processFile}
+                />
+              </Box>
+              <Tooltip
+                title="এমন ছবি আপলোড করুন যার সাইজ ১এমবির বেশি নয়। 
+এবং ৬০০*৬০০ পিক্সেলের হয়। ছবি অবশ্যই JPEG/JPG/PNG ফরমেটের হতে হবে। 
+বিঃদ্রঃ মেয়েদের জন্য ছবি বাধ্যতামুলক নয়।
+"
               >
-                <option defaultValue>select year</option>
-                {years.map((year, i) => (
-                  <option key={i} value={year} defaultValue="select">
-                    {year}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label>current Address</label>
-              <input {...register(">currentAddress")} placeholder="gulshan, vatara,Dhaka-1212" />
-            </div>
-            <div>
-              <label>permanent Address</label>
-              <input
-                {...register("permanentAddress")}
-                placeholder="2626,gopalganj-1200"
+                <IconButton>
+                  <InfoIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+
+            {/* Phone Number */}
+            <Box className="divLayout">
+              <TextField
+                {...register("phone", { required: true })}
+                label="Phone Number"
+                variant="outlined"
+                fullWidth
+                error={!!errors.phone}
+                helperText={errors.phone && "Phone Number is required"}
               />
-            </div>
-            <div>
-              <label>
-                Facebook User URL <span className="required">if you have</span>
-              </label>
-              <input
-                {...register("facebookUrl", { required: true })}
-                placeholder="https://www.facebook.com/userName"
+              <Tooltip title="মোবাইল নাম্বার টি লিখুন। প্রয়োজনে আপনার সাথে যোগাযোগ সহজতর হবে। ">
+                <IconButton>
+                  <InfoIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+
+            {/* Email */}
+            <Box className="divLayout">
+              <TextField
+                {...register("email", { required: true })}
+                label="Email"
+                variant="outlined"
+                fullWidth
+                error={!!errors.email}
+                helperText={errors.email && "Email is required"}
               />
-            </div>
-            <div>
-              <label>
-                Twitter User URL <span className="required">if you have</span>
-              </label>
-              <input
-                {...register("twitter")}
-                placeholder="https://www.twitter.com/userName"
+              <Tooltip title="ইমেল লিখুন। যেমন : example@gmail.com">
+                <IconButton>
+                  <InfoIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+
+            {/* Gender */}
+            <Box className="divLayout">
+              <FormControl fullWidth error={!!errors.gender}>
+                <InputLabel>Gender</InputLabel>
+                <Controller
+                  name="gender"
+                  control={control}
+                  defaultValue=""
+                  rules={{ required: "Gender is required" }}
+                  render={({ field }) => (
+                    <Select {...field}>
+                      <MenuItem value="male">Male</MenuItem>
+                      <MenuItem value="female">Female</MenuItem>
+                    </Select>
+                  )}
+                />
+                {errors.gender && (
+                  <FormHelperText>{errors.gender.message}</FormHelperText>
+                )}
+              </FormControl>
+              <Tooltip title="আপনার লিংগ সিলেক্ট করুন। ">
+                <IconButton>
+                  <InfoIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+
+            {/* Exam Year */}
+            <Box className="divLayout">
+              <FormControl fullWidth error={!!errors.examYear}>
+                <InputLabel>Dakhil Exam Year</InputLabel>
+                <Controller
+                  name="examYear"
+                  control={control}
+                  defaultValue=""
+                  rules={{ required: "Dakhil Exam year is required" }}
+                  render={({ yearList }) => (
+                    <Select {...yearList}>
+                      {years.map((year, i) => (
+                        <MenuItem key={i} value={year}>
+                          {year}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  )}
+                />
+                {errors.examYear && (
+                  <FormHelperText>{errors.examYear.message}</FormHelperText>
+                )}
+              </FormControl>
+              <Tooltip
+                title="কত সালে দাখিল দিয়েছেন, তা সিলেক্ট করুন। 
+যদি দাখিল দিয়ে না থাকেন তবে আপনার দাখিলের ব্যাচ সাল সিলেক্ট করুন।
+"
+              >
+                <IconButton>
+                  <InfoIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+
+            {/* Blood Group */}
+            <Box className="divLayout">
+              <FormControl fullWidth>
+                <InputLabel>Blood Group</InputLabel>
+                <Select {...register("blood")} defaultValue="">
+                  {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map(
+                    (group, i) => (
+                      <MenuItem key={i} value={group}>
+                        {group}
+                      </MenuItem>
+                    )
+                  )}
+                </Select>
+              </FormControl>
+              <Tooltip title="আপনার রক্তের গ্রুপ সিলেক্ট করুন। যদি রক্তের গ্রুপ জানা না থাকে কোন কিছু সিলেক্ট করা লাগবে না। ">
+                <IconButton>
+                  <InfoIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+
+            {/* Current address */}
+            <Box className="divLayout">
+              <TextField
+                {...register("city")}
+                label="Current City you live in"
+                variant="outlined"
+                fullWidth
               />
-            </div>
-            <div>
-              <label>
-                Linkedin User URL <span className="required">if you have</span>
-              </label>
-              <input
-                {...register("linkedin")}
-                placeholder="https://www.linkedin.com/{userName}"
+              <Tooltip title="বর্তমান ঠিকানা লিখুন। সম্পূর্ণ ঠিকানা লিখুন। যোগাযোগ করতে সহজ হবে। ">
+                <IconButton>
+                  <InfoIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+
+            {/* permanent address */}
+            <Box className="divLayout">
+              <TextField
+                {...register("country")}
+                label="Permanent Address"
+                variant="outlined"
+                fullWidth
               />
-            </div>
-            {/* <div>
-              <label>Current Status</label>
-              <select {...register("status")}>
-                <option defaultValue>Select Current Status..</option>
-                <option value="Job">Job</option>
-                <option value="Enterpreneur">Enterpreneur</option>
-                <option value="Job Scker">Job Sceker</option>
-                <option value="Retired">Retired</option>
-                <option value="Student">Student</option>
-                <option value="House Wife">House Wife</option>
-                <option value="Doctor">Doctor</option>
-                <option value="Teacher">Teacher</option>
-                <option value="other">Other</option>
-              </select>
-            </div> */}
-             <div>
-              <label>Blood Group</label>
-              <select {...register("blood")}>
-                <option defaultValue>Select Blood Group..</option>
-                <option value="A+">A+</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B-">B-</option>
-                <option value="AB+">AB+</option>
-                <option value="AB-">AB-</option>
-                <option value="O+">O+</option>
-                <option value="O-">O-</option>
-              </select>
-            </div>
-          
-            <div>
-              <label>
-                Title Of Your Position <span className="required"></span>
-              </label>
-              <input
+              <Tooltip title="স্থায়ী ঠিকানা লিখুন। ">
+                <IconButton>
+                  <InfoIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+            {/* facebook Url */}
+            <Box className="divLayout">
+              <TextField
+                {...register("facebookUrl")}
+                label="facebook profile Link"
+                variant="outlined"
+                fullWidth
+              />
+              <Tooltip title="আপনার ফেসবুক প্রফাইলের লিংক দিন। ফেসবুকে নিজ প্রফাইলে থ্রি ডটে ক্লিক করার পর কপি লিংক থেকে কপি করে এখানে পেস্ট করুন। ">
+                <IconButton>
+                  <InfoIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+
+            {/* Status */}
+            <Box className="divLayout">
+              <TextField
                 {...register("status")}
-                placeholder="e.g Student/ manager/ owner/ teacher/ house wife/ job/ enterpreneur"
+                label="Current Status (Student, Job, etc.)"
+                variant="outlined"
+                fullWidth
               />
-            </div>
-            <div>
-              <label>
-                Company or Institute name <span className="required">if you house wife no need to input</span>
-              </label>
-              <input
+              <Tooltip title="বর্তমানে কি পেশায় আছেন তা লিখুন। যেমন : ডাক্তার, ইঞ্জিনিয়ার, ছাত্র, শিক্ষক, গৃহিনী, উকিল, ম্যানেজার, CEO ইত্যাদি ">
+                <IconButton>
+                  <InfoIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+
+            {/* place */}
+            <Box className="divLayout">
+              <TextField
                 {...register("place")}
-                placeholder="e.g Dhaka College/ city bank/ Uttor badda Kamil Madrasha"
+                label="Company or Institute name (Dhaka College, Uttor Badda Kamil Madrasha)"
+                variant="outlined"
+                fullWidth
               />
-              {errors.place?.type === "required" && (
-                <p className="errors">
-                  {errors.place?.type === "required" &&
-                    "Work Place name is required"}
-                </p>
-              )}
-            </div>
-           
-          </div>
-          <div>
-            <label>Comments / Questions:</label>
-            <textarea style={{width:"100%"}} rows="5" {...register("comments")} />
-          </div>
-          <button style={{margin:"10px auto"}}>Submit</button>
-        </form>
+              <Tooltip title="আপনি যে পেশায় নিয়োজিত সে স্থানের নাম লিখুন। যেমন : শাহজাদপুর নজর মাহমুদ আলিম মাদ্রাসা, ইউনিলিভার, প্রান-আরএফএল, টোয়াটা জাপান">
+                <IconButton>
+                  <InfoIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+
+            {/* Comments */}
+            <Box className="divLayout">
+              <TextField
+                {...register("comments")}
+                label="Comments / Questions"
+                variant="outlined"
+                multiline
+                rows={4}
+                fullWidth
+              />
+              <Tooltip title="হাজী মাদবর আলী হাচানিয়া দাখিল মাদ্রাসা অ্যালামনাই অ্যাসোসিয়েশন সম্পর্কে আপনার কোন মতামত থাকলে তা জানান। ">
+                <IconButton>
+                  <InfoIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+
+            {/* Submit Button */}
+            <Button variant="contained" color="primary" type="submit" fullWidth>
+              Submit
+            </Button>
+          </form>
+        </Box>
       </div>
     </>
   );
