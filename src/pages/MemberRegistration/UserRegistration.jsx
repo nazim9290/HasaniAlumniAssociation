@@ -214,8 +214,8 @@ const UserRegistration = () => {
                   control={control}
                   defaultValue=""
                   rules={{ required: "Dakhil Exam year is required" }}
-                  render={({ yearList }) => (
-                    <Select {...yearList}>
+                  render={({ field }) => (
+                    <Select {...field}>
                       {years.map((year, i) => (
                         <MenuItem key={i} value={year}>
                           {year}
