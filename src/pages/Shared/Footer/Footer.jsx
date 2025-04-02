@@ -18,6 +18,7 @@ export default function Footer() {
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <h4>Where We Are</h4>
             <iframe
+              title="Location of Hazi Madbor Ali Hasania Dakhil Madrasha"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.7428341775644!2d90.42995981445664!3d23.792170293097485!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c70c839a716f%3A0x7ac2fafa0907cbac!2sHazi%20Madbor%20Ali%20Hasania%20Dakhil%20Madrasha!5e0!3m2!1sen!2sjp!4v1639007005021!5m2!1sen!2sjp"
               width="100%"
               style={{ border: 0 }}
