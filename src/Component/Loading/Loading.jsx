@@ -5,12 +5,13 @@ import Stack from "@mui/material/Stack";
 
 export default function Loading() {
   return (
-    <Stack sx={{ width: "50%", mx: "auto", my: 20 }}>
+    <Stack sx={{ width: "50%", mx: "auto", my: 10 }}>
       <Button
         loading
         loadingPosition="start"
         startIcon={<SaveIcon />}
         variant="outlined"
+        color="primary"
       >
         L O A D I N G .....
       </Button>

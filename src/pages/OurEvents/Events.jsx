@@ -31,18 +31,18 @@ export default function Events() {
           spacing={1}
           sx={{ boxShadow: 3, my: 5, p: 4, bgcolor: "#e0f2f1" }}
         >
-          <Grid item xs={12} md={6}>
+          <Grid xs={12} md={6}>
             <img src={event.image} alt="" width="100%" height="300px" />
           </Grid>
-          <Grid size={{ xs: 12, sm: 6 , md: 6 }}>
+          <Grid size={{ xs: 12, sm: 6, md: 6 }}>
             <Grid container>
-              <Grid size={{ xs: 9, sm: 6 , md: 10 }}>
+              <Grid size={{ xs: 9, sm: 6, md: 10 }}>
                 <div className="event-title">
                   <h1>UPCOMING EVENT</h1>
                   <h2>{event.title}</h2>
                 </div>
               </Grid>
-              <Grid size={{ xs: 3, sm: 6 , md: 2 }}>
+              <Grid size={{ xs: 3, sm: 6, md: 2 }}>
                 <div className="event-date">
                   <h1>{event.date.split(" ")[1]}</h1>
 
@@ -77,5 +77,5 @@ export default function Events() {
         </Grid>
       ))}
     </div>
-  )
+  );
 }

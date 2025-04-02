@@ -59,11 +59,9 @@ const UserRegistration = () => {
       email: data.email,
       gender: data.gender,
       examYear: data.examYear,
-      city: data.city,
-      country: data.country,
+      presentAddress: data.presentAddress,
+      permanentAddress: data.permanentAddress,
       facebookUrl: data.facebookUrl,
-      twitterUrl: data.twitterUrl,
-      linkedinUrl: data.linkedinUrl,
       status: data.status,
       place: data.place,
       blood: data.blood,
@@ -214,8 +212,8 @@ const UserRegistration = () => {
                   control={control}
                   defaultValue=""
                   rules={{ required: "Dakhil Exam year is required" }}
-                  render={({ yearList }) => (
-                    <Select {...yearList}>
+                  render={({ field }) => (
+                    <Select {...field}>
                       {years.map((year, i) => (
                         <MenuItem key={i} value={year}>
                           {year}
@@ -263,7 +261,7 @@ const UserRegistration = () => {
             {/* Current address */}
             <Box className="divLayout">
               <TextField
-                {...register("city")}
+                {...register("presentAddress")}
                 label="Current City you live in"
                 variant="outlined"
                 fullWidth
@@ -278,7 +276,7 @@ const UserRegistration = () => {
             {/* permanent address */}
             <Box className="divLayout">
               <TextField
-                {...register("country")}
+                {...register("permanentAddress")}
                 label="Permanent Address"
                 variant="outlined"
                 fullWidth

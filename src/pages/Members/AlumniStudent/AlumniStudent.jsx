@@ -50,9 +50,6 @@ const AlumniStudent = ({ member }) => {
         <Typography variant="body2" color="text.secondary">
           Dakhil Year - {member?.examYear}
         </Typography>
-        {/* <Typography variant="body2" color="text.secondary">
-                                    <a href={`mailto:${member.examYear}`}>{member.email}</a>
-                                </Typography> */}
         <Typography variant="body2" color="text.secondary">
           Blood Group - {member?.blood}
         </Typography>
@@ -66,19 +63,25 @@ const AlumniStudent = ({ member }) => {
           spacing={1}
         >
           <a href={`mailto:${member?.email}`}>
-            <i class="fas fa-envelope"></i>
+            <i className="fas fa-envelope"></i>
           </a>
           <a href={`tel:${member?.phone}`}>
             <i className="fas fa-phone-square-alt"></i>
           </a>
           <a href={member?.facebookUrl} target="_blank">
-            <i className="fab fa-twitter"></i>
-          </a>
-          <a href={member?.facebookUrl} target="_blank">
             <i className="fab fa-facebook"></i>
           </a>
-          <a href={member?.facebookUrl} target="_blank">
-            <i className="fab fa-linkedin"></i>
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+              member?.presentAddress
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="fa fa-address-card"></i>
+          </a>
+          <a href={member?.fullName} target="_blank">
+            <i className="fa fa-info-circle"></i>
           </a>
         </Stack>
       </Box>

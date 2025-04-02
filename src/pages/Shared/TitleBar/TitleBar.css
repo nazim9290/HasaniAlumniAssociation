@@ -2,7 +2,7 @@
 .title-bar {
     width: 50%;
     padding: 0 20px;
-    margin: 15px auto;
+		margin: 0 auto;
 }
 hr.style-seven {
     overflow: visible; /* For IE */

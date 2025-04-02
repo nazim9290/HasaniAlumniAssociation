@@ -1,1 +1,2 @@
-export const apiBaseUrl = "https://alumni-api.nihonelegant.com";
+export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+//console.log(apiBaseUrl);
