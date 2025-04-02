@@ -12,12 +12,11 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import React from "react";
 import { NavLink } from "react-router-dom";
-//import useAuth from "./../../Hooks/useAuth";
 import ContactPageIcon from "@mui/icons-material/ContactPage";
 import ListItemButton from "@mui/material/ListItemButton";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 
-const DashboardRoute = () => {
+const DashBoardRoute = () => {
   // const { logout, user, admin } = useAuth();
   const icons = [
     <HomeIcon />,
@@ -78,4 +77,4 @@ const DashboardRoute = () => {
   );
 };
 
-export default DashboardRoute;
+export default DashBoardRoute;

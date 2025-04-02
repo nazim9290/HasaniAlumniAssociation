@@ -1,5 +1,4 @@
 import MenuIcon from "@mui/icons-material/Menu";
-//import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
@@ -9,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { Outlet } from "react-router-dom";
-import DashboardRoute from "./DashboardRoute";
+import DashboardRoute from "./DashBoardRoute";
 import TopBarNavigation from "../../Component/TopBarNavigation/TopBarNavigation";
 
 const drawerWidth = 200;
