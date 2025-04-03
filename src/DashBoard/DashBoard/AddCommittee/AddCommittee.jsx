@@ -10,7 +10,7 @@ import {
   Container,
   Box,
 } from "@mui/material";
-import { CommitteeDesignations } from "./CommitteeDesignation";
+import { CommitteeDesignations } from "./CommitteeDesignations";
 import TitleBar from "../../../pages/Shared/TitleBar/TitleBar";
 //import useAuth from "./../../Hooks/useAuth";
 
@@ -53,17 +53,22 @@ const AddCommittee = () => {
     <div>
       <Container>
         <TitleBar titleText="Add Punormiloni Committee"></TitleBar>
-        <Box sx={{ maxWidth: "50%", margin: " auto" }}>
+        <Box sx={{ width: 500 }}>
           <form onSubmit={handleAdminSubmit}>
-            <Stack spacing={3} sx={{ width: "75%", mx: "auto" }}>
+            <Stack
+              spacing={3}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <TextField
                 label="Email"
                 type="email"
                 name="email"
-                onChange={onChangeValue}
                 variant="standard"
                 fullWidth
-                value={userInfo.email}
                 placeholder="email"
                 required
               />
@@ -74,18 +79,14 @@ const AddCommittee = () => {
                 <Select
                   labelId="demo-simple-select-required-label"
                   id="demo-simple-select-required"
-                  type="text"
-                  name="designation *"
-                  onChange={onChangeValue}
-                  value={userInfo.designation}
-                  label="Designation *"
+                  name="designation"
+                  label="Designation"
                   placeholder="designation *"
                   required
                 >
                   {CommitteeDesignations.map((d, i) => (
-                    <MenuItem key={i} value={{ d, rank: i + 1 }}>
-                      {" "}
-                      {d[1]}
+                    <MenuItem key={i} value={i + 1}>
+                      {d}
                     </MenuItem>
                   ))}
                 </Select>

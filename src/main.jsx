@@ -6,9 +6,12 @@ import {
 } from "react-router-dom";
 import { router } from './Routes/router';
 import { HelmetProvider } from "react-helmet-async";
+import AuthProvider from "./providers/AuthProvider";
 
 createRoot(document.getElementById("root")).render(
-  <HelmetProvider>
-    <RouterProvider router={router} />
-  </HelmetProvider>
+  <AuthProvider>
+    <HelmetProvider>
+      <RouterProvider router={router} />
+    </HelmetProvider>
+  </AuthProvider>
 );

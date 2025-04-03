@@ -6,10 +6,6 @@ import TopBarNavigation from "../../../Component/TopBarNavigation/TopBarNavigati
 export default function TeacherDashboard() {
   return (
     <div>
-      <TopBarNavigation
-        t1={"All Teacher"}
-        t2={"Add Teacher"}
-      ></TopBarNavigation>
       <TitleBar titleText="Add Madrasah Teacher" />
       <AddTeacher></AddTeacher>
     </div>

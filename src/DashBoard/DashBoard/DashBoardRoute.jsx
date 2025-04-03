@@ -15,17 +15,26 @@ import { NavLink } from "react-router-dom";
 import ContactPageIcon from "@mui/icons-material/ContactPage";
 import ListItemButton from "@mui/material/ListItemButton";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 
 const DashBoardRoute = () => {
   // const { logout, user, admin } = useAuth();
+
   const icons = [
-    <HomeIcon />,
+    <DashboardIcon />,
     <AccountCircleIcon />,
-    <ContactPageIcon />,
     <CreateIcon />,
+    <NotificationsNoneIcon />,
     <LogoutIcon />,
   ];
-  const route = ["Home", "Profile", "My Info", "Blog Write", "Log Out"];
+  const route = [
+    "Dashboard",
+    "My Info",
+    "Blog Write",
+    "Notification",
+    "Log Out",
+  ];
   const adminicons = [
     <SupervisorAccountIcon />,
     <EventNoteIcon />,
@@ -43,23 +52,25 @@ const DashBoardRoute = () => {
       {/* for all user  */}
 
       <List>
-        {["Home", "", "MyInfo", "BlogWrite", "Logout"].map((text, index) => (
-          <Box key={index}>
-            <NavLink to={text} sx={{ textDecoration: "none" }}>
-              <ListItemButton>
-                {" "}
-                <ListItemIcon>{icons[index]}</ListItemIcon>
-                <ListItemText primary={route[index]} />
-              </ListItemButton>
-            </NavLink>
-          </Box>
-        ))}
+        {["", "MyInfo", "BlogWrite", "Notification", "Logout"].map(
+          (text, index) => (
+            <Box key={index}>
+              <NavLink to={text} sx={{ textDecoration: "none" }}>
+                <ListItemButton>
+                  {" "}
+                  <ListItemIcon>{icons[index]}</ListItemIcon>
+                  <ListItemText primary={route[index]} />
+                </ListItemButton>
+              </NavLink>
+            </Box>
+          )
+        )}
       </List>
 
       {/* for admin only  */}
 
       <List>
-        {["MakeAdmin", "addEvent", "addCommittee", "addTeacher"].map(
+        {["MakeAdmin", "addEvent", "addCommittee", "allTeacher"].map(
           (text, index) => (
             <Box key={index}>
               <NavLink to={text}>

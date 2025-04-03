@@ -62,7 +62,7 @@ export default function AllTeachers() {
 
   const handleEdit = (id) => {
     console.log("Edit clicked for ID:", id);
-    navigate(`/Dashboard/addTeacher/edit/${id}`);
+    navigate(`/Dashboard/allTeacher/edit/${id}`);
 
     // Navigate to edit page or open a modal
   };
@@ -86,10 +86,6 @@ export default function AllTeachers() {
   }, [setRows]);
   return (
     <Container>
-      <TopBarNavigation
-        t1={"All Teachers"}
-        t2={"Add Teachers"}
-      ></TopBarNavigation>
       <TitleBar titleText={"All Teachers"}></TitleBar>
       <Box>
         <DataTable rows={rows} columns={columns} loading={loading}></DataTable>

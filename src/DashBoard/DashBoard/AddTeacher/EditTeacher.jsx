@@ -33,11 +33,12 @@ const EditTeacher = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues: teacher });
 
   // Image Upload
   const processFile = (e) => {
     const image = e.target.files[0];
+
     const data = new FormData();
     data.append("file", image);
     data.append("upload_preset", "alumni");
@@ -55,7 +56,7 @@ const EditTeacher = () => {
   // Form Submission
   const onSubmit = async (data) => {
     const userData = {
-      picture: url,
+      picture: url || teacher.picture,
       fullName: data.fullName,
       phone: data.phone,
       email: data.email,
@@ -72,11 +73,13 @@ const EditTeacher = () => {
     };
 
     axios
-      .post(`${apiBaseUrl}/addTeacher`, userData)
+      .put(`${apiBaseUrl}/updateTeacher/${teacherId}`, userData)
       .then((res) => {
-        if (res.data.insertedId) {
-          // Show success message
-          SweetAlert.success("Success", "Form submitted successfully!");
+        if (res.data.modifiedCount) {
+          SweetAlert.success(
+            "Success",
+            "Teacher details updated successfully!"
+          );
         }
         reset();
         setTimeout(() => navigate("/OurTeachers"), 2000);
@@ -87,300 +90,351 @@ const EditTeacher = () => {
   useEffect(() => {
     fetch(`${apiBaseUrl}/teacher/${teacherId}`)
       .then((res) => res.json())
-      .then((data) => setTeacher(data));
-  }, [teacherId]);
+      .then((data) => {
+        setTeacher(data);
+        reset(data); // Populate form with existing teacher data
+      });
+  }, [teacherId, reset]);
 
   return (
     <div>
       <Container>
-        {teacherId?.fullName}
         <Box>
           <Box component="form" noValidate autoComplete="off">
             <h4 style={{ textAlign: "center" }}>
-              Fill in the input information in English
+              Update Teacher Information (Fill in the input information in
+              English)
             </h4>
             <form
               onSubmit={handleSubmit(onSubmit)}
               encType="multipart/form-data"
             >
               {/* Full Name */}
-              <Box className="divLayout">
-                <TextField
-                  {...register("fullName", { required: true })}
-                  label="Teacher Name"
-                  id="outlined-helperText"
-                  defaultValue={teacher.fullName}
-                  variant="outlined"
-                  fullWidth
-                  error={!!errors.fullName}
-                  helperText={errors.fullName && "Name is required"}
-                />
-                <Tooltip title="আপনার সম্পূর্ণ নাম লিখুন।">
-                  <IconButton>
-                    <InfoIcon />
-                  </IconButton>
-                </Tooltip>
+              <Box>
+                <InputLabel>Name :</InputLabel>
+                <Box className="divLayout">
+                  <TextField
+                    {...register("fullName", { required: true })}
+                    defaultValue={teacher?.fullName || ""}
+                    fullWidth
+                    error={!!errors.fullName}
+                    helperText={errors.fullName && "Name is required"}
+                  />
+                  <Tooltip title="আপনার সম্পূর্ণ নাম লিখুন।">
+                    <IconButton>
+                      <InfoIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
               </Box>
 
               {/* Profile Picture */}
-              <Box className="divLayout">
-                <Box>
-                  <InputLabel sx={{ color: "red", fontSize: "12px" }}>
-                    Upload Profile Picture (Max 1MB, 600px x 600px,
-                    JPEG/JPG/PNG)
-                  </InputLabel>
+              <Box>
+                <InputLabel sx={{ color: "red" }}>
+                  Upload Profile Picture (Max 1MB, 600px x 600px, JPEG/JPG/PNG)
+                </InputLabel>
 
-                  <input
-                    type="file"
-                    {...register("image")}
-                    onChange={processFile}
-                  />
-                </Box>
-                <Tooltip
-                  title="এমন ছবি আপলোড করুন যার সাইজ ১এমবির বেশি নয়। 
+                <Box className="divLayout">
+                  <Box>
+                    <input
+                      type="file"
+                      {...register("image")}
+                      onChange={processFile}
+                    />
+                    <img
+                      src={teacher.picture}
+                      alt=""
+                      height={100}
+                      width={100}
+                    />
+                  </Box>
+                  <Tooltip
+                    title="এমন ছবি আপলোড করুন যার সাইজ ১এমবির বেশি নয়। 
 এবং ৬০০*৬০০ পিক্সেলের হয়। ছবি অবশ্যই JPEG/JPG/PNG ফরমেটের হতে হবে। 
 বিঃদ্রঃ মেয়েদের জন্য ছবি বাধ্যতামুলক নয়।
 "
-                >
-                  <IconButton>
-                    <InfoIcon />
-                  </IconButton>
-                </Tooltip>
+                  >
+                    <IconButton>
+                      <InfoIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
               </Box>
 
               {/* Phone Number */}
-              <Box className="divLayout">
-                <TextField
-                  {...register("phone", { required: true })}
-                  label="Phone Number"
-                  defaultValue={teacher.phone}
-                  variant="outlined"
-                  fullWidth
-                  error={!!errors.phone}
-                  helperText={errors.phone && "Phone Number is required"}
-                />
-                <Tooltip title="মোবাইল নাম্বার টি লিখুন। প্রয়োজনে আপনার সাথে যোগাযোগ সহজতর হবে। ">
-                  <IconButton>
-                    <InfoIcon />
-                  </IconButton>
-                </Tooltip>
+              <Box>
+                <InputLabel>Phone :</InputLabel>
+                <Box className="divLayout">
+                  <TextField
+                    {...register("phone", { required: true })}
+                    defaultValue={teacher.phone}
+                    variant="outlined"
+                    fullWidth
+                    error={!!errors.phone}
+                    helperText={errors.phone && "Phone Number is required"}
+                  />
+                  <Tooltip title="মোবাইল নাম্বার টি লিখুন। প্রয়োজনে আপনার সাথে যোগাযোগ সহজতর হবে। ">
+                    <IconButton>
+                      <InfoIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
               </Box>
 
               {/* Email */}
-              <Box className="divLayout">
-                <TextField
-                  {...register("email", { required: true })}
-                  label="Email"
-                  defaultValue={teacher.email}
-                  variant="outlined"
-                  fullWidth
-                  error={!!errors.email}
-                  helperText={errors.email && "Email is required"}
-                />
-                <Tooltip title="ইমেল লিখুন। যেমন : example@gmail.com">
-                  <IconButton>
-                    <InfoIcon />
-                  </IconButton>
-                </Tooltip>
+              <Box>
+                <InputLabel>Email :</InputLabel>
+                <Box className="divLayout">
+                  <TextField
+                    {...register("email", { required: true })}
+                    defaultValue={teacher.email}
+                    variant="outlined"
+                    fullWidth
+                    error={!!errors.email}
+                    helperText={errors.email && "Email is required"}
+                  />
+                  <Tooltip title="ইমেল লিখুন। যেমন : example@gmail.com">
+                    <IconButton>
+                      <InfoIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
               </Box>
 
               {/* Gender */}
-              <Box className="divLayout">
-                <FormControl fullWidth error={!!errors.gender}>
-                  <InputLabel>Gender</InputLabel>
-                  <Controller
-                    name="gender"
-                    control={control}
-                    defaultValue={teacher.gender}
-                    rules={{ required: "Gender is required" }}
-                    render={({ field }) => (
-                      <Select {...field}>
-                        <MenuItem value="male">Male</MenuItem>
-                        <MenuItem value="female">Female</MenuItem>
-                      </Select>
+              <Box>
+                <InputLabel>Gender :</InputLabel>
+                <Box className="divLayout">
+                  <FormControl fullWidth error={!!errors.gender}>
+                    <Controller
+                      name="gender"
+                      defaultValue={teacher?.gender || ""}
+                      control={control}
+                      rules={{ required: "Gender is required" }}
+                      render={({ field }) => (
+                        <Select {...field} value={field.value || ""}>
+                          <MenuItem value="male">Male</MenuItem>
+                          <MenuItem value="female">Female</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    {errors.gender && (
+                      <FormHelperText>{errors.gender.message}</FormHelperText>
                     )}
-                  />
-                  {errors.gender && (
-                    <FormHelperText>{errors.gender.message}</FormHelperText>
-                  )}
-                </FormControl>
-                <Tooltip title="আপনার লিংগ সিলেক্ট করুন। ">
-                  <IconButton>
-                    <InfoIcon />
-                  </IconButton>
-                </Tooltip>
+                  </FormControl>
+                  <Tooltip title="আপনার লিংগ সিলেক্ট করুন। ">
+                    <IconButton>
+                      <InfoIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
               </Box>
 
               {/* Madrasha Section */}
-              <Box className="divLayout">
-                <FormControl fullWidth error={!!errors.section}>
-                  <InputLabel>Madrasah Section</InputLabel>
-                  <Controller
-                    name="section"
-                    control={control}
-                    defaultValue={teacher.section}
-                    rules={{ required: "Madrasah Section is required" }}
-                    render={({ field }) => (
-                      <Select {...field}>
-                        <MenuItem value="dakhil">Dakhil Section</MenuItem>
-                        <MenuItem value="bording">
-                          Bording and Hefz Section
-                        </MenuItem>
-                      </Select>
+              <Box>
+                <InputLabel>Madrasah Section :</InputLabel>
+                <Box className="divLayout">
+                  <FormControl fullWidth error={!!errors.section}>
+                    <Controller
+                      name="section"
+                      control={control}
+                      defaultValue={teacher?.section || ""}
+                      rules={{ required: "Madrasah Section is required" }}
+                      render={({ field }) => (
+                        <Select {...field} value={field.value || ""}>
+                          <MenuItem value="dakhil">Dakhil Section</MenuItem>
+                          <MenuItem value="bording">
+                            Bording and Hefz Section
+                          </MenuItem>
+                        </Select>
+                      )}
+                    />
+                    {errors.section && (
+                      <FormHelperText>{errors.section.message}</FormHelperText>
                     )}
-                  />
-                  {errors.section && (
-                    <FormHelperText>{errors.section.message}</FormHelperText>
-                  )}
-                </FormControl>
-                <Tooltip title="আপনার section সিলেক্ট করুন। ">
-                  <IconButton>
-                    <InfoIcon />
-                  </IconButton>
-                </Tooltip>
+                  </FormControl>
+                  <Tooltip title="আপনার section সিলেক্ট করুন। ">
+                    <IconButton>
+                      <InfoIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
               </Box>
 
               {/* designation */}
-              <Box className="divLayout">
-                <FormControl fullWidth error={!!errors.designation}>
-                  <InputLabel>Designation</InputLabel>
-                  <Controller
-                    name="designation"
-                    control={control}
-                    defaultValue={teacher.designation}
-                    rules={{ required: "Designation is required" }}
-                    render={({ field }) => (
-                      <Select {...field}>
-                        {teacherDesignations.map((designation, i) => (
-                          <MenuItem key={i} value={i}>
-                            {designation}
-                          </MenuItem>
-                        ))}
-                      </Select>
+              <Box>
+                <InputLabel>Select Designation :</InputLabel>
+                <Box className="divLayout">
+                  <FormControl fullWidth error={!!errors.designation}>
+                    <Controller
+                      name="designation"
+                      control={control}
+                      defaultValue={teacher?.designation || ""}
+                      rules={{ required: "Designation is required" }}
+                      render={({ field }) => (
+                        <Select {...field} value={field.value || ""}>
+                          {teacherDesignations.map((designation, i) => (
+                            <MenuItem key={i} value={i}>
+                              {designation}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      )}
+                    />
+                    {errors.designation && (
+                      <FormHelperText>
+                        {errors.designation.message}
+                      </FormHelperText>
                     )}
-                  />
-                  {errors.designation && (
-                    <FormHelperText>
-                      {errors.designation.message}
-                    </FormHelperText>
-                  )}
-                </FormControl>
-                <Tooltip title="">
-                  <IconButton>
-                    <InfoIcon />
-                  </IconButton>
-                </Tooltip>
+                  </FormControl>
+                  <Tooltip title="">
+                    <IconButton>
+                      <InfoIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
               </Box>
 
               {/* Status */}
-              <Box className="divLayout">
-                <FormControl fullWidth error={!!errors.status}>
-                  <InputLabel>Active Status</InputLabel>
-                  <Controller
-                    name="status"
-                    control={control}
-                    defaultValue={teacher.status}
-                    rules={{ required: "Active Status is required" }}
-                    render={({ field }) => (
-                      <Select {...field}>
-                        <MenuItem value="active">Active Teacher</MenuItem>
-                        <MenuItem value="former">Former Teacher</MenuItem>
-                      </Select>
+              <Box>
+                <InputLabel>Active Status :</InputLabel>
+                <Box className="divLayout">
+                  <FormControl fullWidth error={!!errors.status}>
+                    <Controller
+                      name="status"
+                      control={control}
+                      defaultValue={teacher?.status || ""}
+                      rules={{ required: "Active Status is required" }}
+                      render={({ field }) => (
+                        <Select {...field} value={field.value || ""}>
+                          <MenuItem value="active">Active Teacher</MenuItem>
+                          <MenuItem value="former">Former Teacher</MenuItem>
+                        </Select>
+                      )}
+                    />
+
+                    {errors.status && (
+                      <FormHelperText>{errors.status.message}</FormHelperText>
                     )}
-                  />
-                  {errors.status && (
-                    <FormHelperText>{errors.status.message}</FormHelperText>
-                  )}
-                </FormControl>
-                <Tooltip title="আপনার স্ট্যাটাস সিলেক্ট করুন। ">
-                  <IconButton>
-                    <InfoIcon />
-                  </IconButton>
-                </Tooltip>
+                  </FormControl>
+                  <Tooltip title="আপনার স্ট্যাটাস সিলেক্ট করুন। ">
+                    <IconButton>
+                      <InfoIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
               </Box>
 
               {/* place */}
-              <Box className="divLayout">
-                <TextField
-                  {...register("place")}
-                  label="if you former teacher then write your present working place with designation"
-                  defaultValue={teacher.place}
-                  variant="outlined"
-                  fullWidth
-                />
-                <Tooltip title="">
-                  <IconButton>
-                    <InfoIcon />
-                  </IconButton>
-                </Tooltip>
+              <Box>
+                <InputLabel>
+                  if you former teacher then write your present working place
+                  with designation :
+                </InputLabel>
+                <Box className="divLayout">
+                  <TextField
+                    {...register("place")}
+                    defaultValue={teacher?.place || ""}
+                    variant="outlined"
+                    fullWidth
+                  />
+                  <Tooltip title="">
+                    <IconButton>
+                      <InfoIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
               </Box>
 
               {/* Blood Group */}
-              <Box className="divLayout">
-                <FormControl fullWidth>
-                  <InputLabel>Blood Group</InputLabel>
-                  <Select {...register("blood")} defaultValue={teacher.blood}>
-                    {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map(
-                      (group, i) => (
-                        <MenuItem key={i} value={group}>
-                          {group}
-                        </MenuItem>
-                      )
-                    )}
-                  </Select>
-                </FormControl>
-                <Tooltip title="আপনার রক্তের গ্রুপ সিলেক্ট করুন। যদি রক্তের গ্রুপ জানা না থাকে কোন কিছু সিলেক্ট করা লাগবে না। ">
-                  <IconButton>
-                    <InfoIcon />
-                  </IconButton>
-                </Tooltip>
+              <Box>
+                <InputLabel>Blood Group</InputLabel>
+                <Box className="divLayout">
+                  <FormControl fullWidth>
+                    <Controller
+                      name="blood"
+                      control={control}
+                      defaultValue={teacher?.blood || ""}
+                      rules={{ required: "Active Status is required" }}
+                      render={({ field }) => (
+                        <Select {...field} value={field.value || ""}>
+                          {[
+                            "A+",
+                            "A-",
+                            "B+",
+                            "B-",
+                            "AB+",
+                            "AB-",
+                            "O+",
+                            "O-",
+                          ].map((group, i) => (
+                            <MenuItem key={i} value={group}>
+                              {group}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      )}
+                    />
+                  </FormControl>
+                  <Tooltip title="আপনার রক্তের গ্রুপ সিলেক্ট করুন। যদি রক্তের গ্রুপ জানা না থাকে কোন কিছু সিলেক্ট করা লাগবে না। ">
+                    <IconButton>
+                      <InfoIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
               </Box>
 
               {/* Current address */}
-              <Box className="divLayout">
-                <TextField
-                  {...register("presentAddress")}
-                  label="Current City you live in"
-                  defaultValue={teacher.presentAddress}
-                  variant="outlined"
-                  fullWidth
-                />
-                <Tooltip title="বর্তমান ঠিকানা লিখুন। সম্পূর্ণ ঠিকানা লিখুন। যোগাযোগ করতে সহজ হবে। ">
-                  <IconButton>
-                    <InfoIcon />
-                  </IconButton>
-                </Tooltip>
+              <Box>
+                <InputLabel>Current City you live in</InputLabel>
+                <Box className="divLayout">
+                  <TextField
+                    {...register("presentAddress")}
+                    defaultValue={teacher?.presentAddress || ""}
+                    variant="outlined"
+                    fullWidth
+                  />
+                  <Tooltip title="বর্তমান ঠিকানা লিখুন। সম্পূর্ণ ঠিকানা লিখুন। যোগাযোগ করতে সহজ হবে। ">
+                    <IconButton>
+                      <InfoIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
               </Box>
 
               {/* permanent address */}
-              <Box className="divLayout">
-                <TextField
-                  {...register("permanentAddress")}
-                  label="Permanent Address"
-                  defaultValue={teacher.permanentAddress}
-                  variant="outlined"
-                  fullWidth
-                />
-                <Tooltip title="স্থায়ী ঠিকানা লিখুন। ">
-                  <IconButton>
-                    <InfoIcon />
-                  </IconButton>
-                </Tooltip>
+              <Box>
+                <InputLabel>permanent Address</InputLabel>
+                <Box className="divLayout">
+                  <TextField
+                    {...register("permanentAddress")}
+                    defaultValue={teacher?.permanentAddress || ""}
+                    variant="outlined"
+                    fullWidth
+                  />
+                  <Tooltip title="স্থায়ী ঠিকানা লিখুন। ">
+                    <IconButton>
+                      <InfoIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
               </Box>
               {/* facebook Url */}
-              <Box className="divLayout">
-                <TextField
-                  {...register("facebookUrl")}
-                  label="facebook profile Link"
-                  defaultValue={teacher.facebookUrl}
-                  variant="outlined"
-                  fullWidth
-                />
-                <Tooltip title="আপনার ফেসবুক প্রফাইলের লিংক দিন। ফেসবুকে নিজ প্রফাইলে থ্রি ডটে ক্লিক করার পর কপি লিংক থেকে কপি করে এখানে পেস্ট করুন। ">
-                  <IconButton>
-                    <InfoIcon />
-                  </IconButton>
-                </Tooltip>
+              <Box>
+                <InputLabel>facebook profile Link</InputLabel>
+                <Box className="divLayout">
+                  <TextField
+                    {...register("facebookUrl")}
+                    defaultValue={teacher?.facebookUrl || ""}
+                    variant="outlined"
+                    fullWidth
+                  />
+                  <Tooltip title="আপনার ফেসবুক প্রফাইলের লিংক দিন। ফেসবুকে নিজ প্রফাইলে থ্রি ডটে ক্লিক করার পর কপি লিংক থেকে কপি করে এখানে পেস্ট করুন। ">
+                    <IconButton>
+                      <InfoIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
               </Box>
 
               {/* Submit Button */}

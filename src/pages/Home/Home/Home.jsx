@@ -4,20 +4,26 @@ import MissionVission from '../MissionVission/MissionVission'
 import AboutMadrasha from '../AboutMadrasha/AboutMadrasha'
 import Message from '../Message/Message'
 import Event from '../Event/Event'
-import SEO from '../../Shared/SEO/SEO'
-import Sponsre from '../../Shared/Sponsore/Sponsre'
-
+import Sponsre from "../../Shared/Sponsore/Sponsre";
+import DefaultPopup from "../DefaultPopup/DefaultPopup";
+import Testimonial from "../Testimonial/Testimonial";
+import WebSEO from "../../Shared/SEO/SEO";
 
 export default function Home() {
   return (
     <div>
-        <SEO title="Home | Hasania Alumni Association" description="Welcome to alumni website!" />
-        <HomeCarousel></HomeCarousel>
-        <MissionVission></MissionVission>
-       <AboutMadrasha></AboutMadrasha>
-       <Event></Event>
-       <Message></Message>
-       <Sponsre image={"https://i.ibb.co/2M2d9mw/Screenshot-5.png"}></Sponsre>
+      <WebSEO
+        title="Home | Hasania Alumni Association"
+        description="Welcome to alumni website!"
+      />
+      {/* <DefaultPopup></DefaultPopup> */}
+      <HomeCarousel></HomeCarousel>
+      <MissionVission></MissionVission>
+      <AboutMadrasha></AboutMadrasha>
+      <Event></Event>
+      <Message></Message>
+      <Testimonial></Testimonial>
+      <Sponsre image={"https://i.ibb.co/2M2d9mw/Screenshot-5.png"}></Sponsre>
     </div>
-  )
+  );
 }

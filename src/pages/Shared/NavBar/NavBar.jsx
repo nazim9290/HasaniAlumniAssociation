@@ -15,33 +15,54 @@ import * as React from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/logo.png";
 import "./NavBar.css";
+import useAuth from "../../../Hooks/useAuth";
+import { Button } from "@mui/material";
 
-const pages = ["Home", "About", "Events", "Member", "Blogs"];
 const settings = ["Dashboard"];
 
 export default function NavBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const user= false;
-  const logout= false;
-  //const { user, logout } = useAuth();
+  const [subMenuAnchorEl, setSubMenuAnchorEl] = React.useState(null); //Organization Submenu anchor
+  const [amSubMenuAnchorEl, setAmSubMenuAnchorEl] = React.useState(null); //About Madrasah Submenu anchor
+  const { user, logout } = useAuth();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  // Open the submenu organization
+  const handleOrgSubMenuClick = (event) => {
+    setSubMenuAnchorEl(event.currentTarget);
+  };
+
+  // Close the submenu organization
+  const handleOrgCloseSubMenu = () => {
+    setSubMenuAnchorEl(null);
+  };
+
+  // Open the submenu Madrasah
+  const handleAmSubMenuClick = (event) => {
+    setAmSubMenuAnchorEl(event.currentTarget);
+  };
+
+  // Close the submenu Madrasah
+  const handleAmCloseSubMenu = () => {
+    setAmSubMenuAnchorEl(null);
+  };
   return (
     <div className="navbar">
+      <hr />
       <div className="title-name">
         <Box
           sx={{
@@ -50,12 +71,12 @@ export default function NavBar() {
             alignItems: "center",
           }}
         >
-          <Box sx={{ flexGrow: 1}}>
-            <small>❀๑▬▬๑﷽๑▬▬๑❀ </small> 
+          <Box sx={{ flexGrow: 1 }}>
+            <small>❀๑▬▬๑﷽๑▬▬๑❀ </small>
             <br />
             <small className="bangla-text">
               হাজী মাদবর আলী হাচানিয়া দাখিল মাদ্রাসা অ্যালামনাই অ্যাসোসিয়েশন
-              </small>
+            </small>
           </Box>
           <a href="tel:01984467364">
             <AddIcCallRoundedIcon sx={{ mr: 1 }} color="primary" />
@@ -82,7 +103,12 @@ export default function NavBar() {
               noWrap
               component="div"
               color="inherit"
-              sx={{ mr: 10, ml: 10, mt:-3, display: { xs: "none", md: "flex" } }}
+              sx={{
+                mr: 10,
+                ml: 10,
+                mt: -3,
+                display: { xs: "none", md: "flex" },
+              }}
             >
               <img src={logo} alt="madrasha logo" width="50" />
             </Typography>
@@ -116,16 +142,43 @@ export default function NavBar() {
                 sx={{
                   display: { xs: "block", md: "none" },
                 }}
-               
               >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Link to={`/${page}`}>{page}</Link>
-                  </MenuItem>
-                ))}
-                <Link onClick={handleCloseNavMenu} to="/Registration">
-                  Member Registration
-                </Link>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link onClick={handleCloseNavMenu} to="/Home">
+                    Home
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleOrgSubMenuClick}>
+                  Organization &#x2193;
+                </MenuItem>
+                <MenuItem onClick={handleAmSubMenuClick}>
+                  About Madrasah &#x2193;
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link onClick={handleCloseNavMenu} to="/AlumniMembers">
+                    Alumni Members
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link onClick={handleCloseNavMenu} to="/Events">
+                    Events
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link onClick={handleCloseNavMenu} to="/Registration">
+                    Membership
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link onClick={handleCloseNavMenu} to="/Blogs">
+                    Blogs
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link onClick={handleCloseNavMenu} to="/Notice">
+                    Notice
+                  </Link>
+                </MenuItem>
               </Menu>
             </Box>
 
@@ -136,29 +189,102 @@ export default function NavBar() {
               className="res-logo"
               noWrap
               component="div"
-              sx={{ flexGrow: 0, mr:10, display: { xs: "flex", md: "none" } }}
+              sx={{ flexGrow: 0, mr: 15, display: { xs: "flex", md: "none" } }}
             >
               <img src={logo} alt="" width="60" />
             </Typography>
             <Box
               className="top-menu"
-              textalign="center"
+              textAlign="center"
               sx={{
                 flexGrow: "1",
-                mx: 15,
-                display: { xs: "none", md: "flex" },
+                mx: "10",
+                display: {
+                  xs: "none",
+                  md: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                },
               }}
             >
-              {pages.map((page) => (
-                <Link key={page} to={`/${page}`}>
-                  {page}
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Link onClick={handleCloseNavMenu} to="/Home">
+                  Home
                 </Link>
-              ))}
-              <Link to="/Registration">Member Registration</Link>
+              </MenuItem>
+              <MenuItem onClick={handleOrgSubMenuClick}>
+                Organization &#x2193;
+              </MenuItem>
+              <MenuItem onClick={handleAmSubMenuClick}>
+                About Madrasah &#x2193;
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Link onClick={handleCloseNavMenu} to="/AlumniMembers">
+                  Alumni Members
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Link onClick={handleCloseNavMenu} to="/Events">
+                  Events
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Link onClick={handleCloseNavMenu} to="/Registration">
+                  Membership
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Link onClick={handleCloseNavMenu} to="/Blogs">
+                  Blogs
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Link onClick={handleCloseNavMenu} to="/Notice">
+                  Notice
+                </Link>
+              </MenuItem>
             </Box>
-            {/* {user?.email ? (
+            {/* Submenu under "Organization" */}
+            <Menu
+              anchorEl={subMenuAnchorEl}
+              open={Boolean(subMenuAnchorEl)}
+              onClose={handleOrgCloseSubMenu}
+            >
+              <MenuItem onClick={handleOrgCloseSubMenu}>
+                <Link to="/aboutUs">About Us</Link>
+              </MenuItem>
+              <MenuItem onClick={handleOrgCloseSubMenu}>
+                <Link to="/history">Our History</Link>
+              </MenuItem>
+              <MenuItem onClick={handleOrgCloseSubMenu}>
+                <Link to="/ConveningCommittee">Convening Committee</Link>
+              </MenuItem>
+              <MenuItem onClick={handleOrgCloseSubMenu}>
+                <Link to="/Constitution">Constitution</Link>
+              </MenuItem>
+            </Menu>
+
+            {/* Submenu under "About Madrasah" */}
+            <Menu
+              anchorEl={amSubMenuAnchorEl}
+              open={Boolean(amSubMenuAnchorEl)}
+              onClose={handleAmCloseSubMenu}
+            >
+              <MenuItem onClick={handleAmCloseSubMenu}>
+                <Link to="/madrasahInfo">Madrasah Info</Link>
+              </MenuItem>
+              <MenuItem onClick={handleAmCloseSubMenu}>
+                <Link to="/OurTeachers">Madrasah Teacher</Link>
+              </MenuItem>
+              <MenuItem onClick={handleAmCloseSubMenu}>
+                <Link to="/ManagingCommittee">Managing Committee</Link>
+              </MenuItem>
+            </Menu>
+
+            {/* {dashboard login} */}
+            {user?.email ? (
               <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
+                <Tooltip title="Open Members Portal">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar sx={{ width: 50, height: 50 }}>
                       {user.photoURL === null ? (
@@ -166,7 +292,7 @@ export default function NavBar() {
                           user.displayName.split(" ")[1][0]
                         }`
                       ) : (
-                        <img src={user?.photoURL} alt="" />
+                        <img src={user?.photoURL} alt="" width="50px" />
                       )}
                     </Avatar>
                   </IconButton>
@@ -191,25 +317,29 @@ export default function NavBar() {
                     <MenuItem
                       className="menu-item"
                       key={setting}
-                      onClick={handleCloseNavMenu}
+                      onClose={handleCloseUserMenu}
                     >
-                      <NavLink to={`/${setting}`} textalign="center">
+                      <NavLink onClose={handleCloseUserMenu} to={`/${setting}`}>
                         {setting}
                       </NavLink>
                     </MenuItem>
                   ))}
-                  <Typography
+                  <MenuItem
                     className="menu-item"
-                    sx={{ cursor: "pointer", textAlign: "center" }}
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
                     onClick={logout}
                   >
                     Logout
-                  </Typography>
+                  </MenuItem>
                 </Menu>
               </Box>
             ) : (
-              <NavLink to="/login">Login</NavLink>
-            )} */}
+              <NavLink to="/login">Members Portal</NavLink>
+            )}
           </Toolbar>
         </Container>
       </AppBar>
