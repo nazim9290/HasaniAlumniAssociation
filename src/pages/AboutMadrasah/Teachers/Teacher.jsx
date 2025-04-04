@@ -4,6 +4,8 @@ import axios from "axios";
 import Loading from "../../Component/Loading/Loading";
 import { Container, Grid2 as Grid, Typography } from "@mui/material";
 import Teachers from "./Teachers";
+import WebSEO from "../../Shared/SEO/SEO";
+import seoData from "../../Shared/SEO/SeoData";
 
 const Teacher = () => {
   const [teachers, setTeachers] = useState([]);
@@ -45,6 +47,7 @@ const Teacher = () => {
 
   return (
     <div>
+      <WebSEO seo={seoData.madrasahTeacher}></WebSEO>
       {teachers.length ? "" : <Loading></Loading>}
       <Container maxWidth="xl" sx={{ my: 5 }}>
         {/* {"madrasha teachers grid"} */}

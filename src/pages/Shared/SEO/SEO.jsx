@@ -1,25 +1,24 @@
 import { Helmet } from "react-helmet";
 
-const WebSEO = ({ title, description, image, url }) => {
+const WebSEO = ({ seo }) => {
   return (
     <Helmet>
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-
+      <title>{seo.title}</title>
       {/* Open Graph for Facebook */}
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      {image && <meta property="og:image" content={image} />}
-      <meta property="og:url" content={url} />
-      <meta property="og:type" content="website" />
+      <meta name="description" content={seo.description} />
+      <meta name="keywords" content={seo.keywords} />
+      <meta property="og:url" content={seo.url} />
+      <meta property="og:title" content={seo.title} />
+      <meta property="og:description" content={seo.description} />
+      <meta property="og:image" content={seo.image} />
 
       {/* Twitter Card */}
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
-      <meta property="twitter:url" content={url} />
-      {image && <meta name="twitter:image" content={image} />}
+      <meta name="twitter:title" content={seo.title} />
+
+      <meta name="twitter:description" content={seo.description} />
+
+      <meta property="twitter:url" content={seo.url} />
+      <meta name="twitter:image" content={seo.image} />
       <meta name="twitter:card" content="summary_large_image" />
     </Helmet>
   );
@@ -33,6 +32,18 @@ WebSEO.defaultProps = {
   image:
     "https://res.cloudinary.com/nazim929/image/upload/v1743070406/purnomilonilogo_ivmnw4_-_Post_sj2vy2.png",
   url: "https://hasaniaalumni.org/",
+  keywords: [
+    "Hasania Alumni Association",
+    "Hazi Madbor Ali Hasania Dakhil Madrasha",
+    "Alumni Association Bangladesh",
+    "Madrasha Alumni Network",
+    "Bangladeshi Alumni Communities",
+    "Educational Institutions in Dhaka",
+    "Hasania Madrasha Graduates",
+    "Vatara Dhaka Education",
+    "Dhaka Educational Organizations",
+    "Bangladesh Madrasha Education",
+  ],
 };
 
 export default WebSEO;

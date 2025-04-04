@@ -8,14 +8,12 @@ import Sponsre from "../../Shared/Sponsore/Sponsre";
 import DefaultPopup from "../DefaultPopup/DefaultPopup";
 import Testimonial from "../Testimonial/Testimonial";
 import WebSEO from "../../Shared/SEO/SEO";
+import seoData from "../../Shared/SEO/SeoData";
 
 export default function Home() {
   return (
     <div>
-      <WebSEO
-        title="Home | Hasania Alumni Association"
-        description="Welcome to alumni website!"
-      />
+      <WebSEO seo={seoData.home} />
       {/* <DefaultPopup></DefaultPopup> */}
       <HomeCarousel></HomeCarousel>
       <MissionVission></MissionVission>

@@ -61,7 +61,7 @@ export default function LoginForm() {
     <Container
       sx={{
         my: 3,
-        width: "50%",
+        width: { xs: "100vw", md: "50vw" },
       }}
       data-aos="flip-up"
       data-aos-duration="1500"
