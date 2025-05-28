@@ -1,2 +1,2 @@
-export const apiBaseUrl = "http://localhost:3000/";
+export const apiBaseUrl = "https://alumni-api.nihonelegant.com/";
 //console.log(apiBaseUrl);
