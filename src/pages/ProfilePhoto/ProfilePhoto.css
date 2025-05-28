@@ -1,0 +1,103 @@
+.profile-photo {
+	color: rgb(21, 20, 20);
+	font-family: 'Arial', sans-serif;
+	text-align: center;
+	padding: 20px;
+}
+
+.frame-selector {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin: 10px 0;
+}
+
+.frame-thumbnail {
+	width: 180px;
+	border: 2px solid rgb(20, 52, 233);
+	cursor: pointer;
+}
+
+.frame-thumbnail.selected {
+	border: 2px solid #e60606;
+}
+
+.preview-canvas {
+	margin-top: 15px;
+	border: 2px solid #ccc;
+}
+
+.file-upload-wrapper {
+	display: inline-block;
+	padding: 20px 12px;
+	border: 2px solid rgb(26, 7, 238);
+	border-radius: 10px;
+	background-color: #fcfafa;
+}
+
+.event-info {
+	text-align: center;
+	color: white;
+	background-color: #111;
+	padding: 40px 20px;
+	max-width: 900px;
+	margin: 16px auto;
+	font-family: 'Noto Sans Bengali', sans-serif;
+}
+
+.event-info .highlight {
+	font-size: 2em;
+	color: #a8b4ff;
+	font-weight: 700;
+}
+
+.event-info .subtitle {
+	margin-top: 20px;
+	font-size: 1.2em;
+	line-height: 1.7;
+	color: #f1f1f1;
+}
+
+.event-info .hashtags {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #fff;
+	margin: 15px 0;
+}
+
+.instruction-list {
+	text-align: left;
+	margin: 30px auto;
+	padding-left: 1.2em;
+	color: #ccc;
+	font-size: 1em;
+	max-width: 700px;
+	line-height: 1.7;
+}
+
+.instruction-list li {
+	margin-bottom: 12px;
+}
+
+.credit {
+	margin-top: 40px;
+	font-size: 0.9em;
+	color: #999;
+}
+.download-btn {
+	background-color: #4976a5;
+	/* muted blue */
+	color: white;
+	padding: 12px 30px;
+	margin-top: 10px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	font-size: 16px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.download-btn:hover {
+	background-color: #3b5e85;
+}

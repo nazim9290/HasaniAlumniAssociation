@@ -62,14 +62,20 @@ export default function Events() {
                   <Typography component="div">
                     <Countdown date={event.date} time={event.time} />
                   </Typography>
-
-                  <Button
-                    className="join-btn"
-                    color="warning"
-                    variant="contained"
+                  <a
+                    href="https://forms.gle/nJBpQpfizsq5YD5n9"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="form-button-link"
                   >
-                    Join Now
-                  </Button>
+                    <Button
+                      className="join-btn"
+                      color="warning"
+                      variant="contained"
+                    >
+                      Join Now
+                    </Button>
+                  </a>
                 </Stack>
               </Grid>
             </Grid>

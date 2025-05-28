@@ -171,7 +171,7 @@ export default function SignForm() {
               </NavLink>
             </Box>
           </Stack>
-          <LoginIcon />
+          {/* <LoginIcon /> */}
         </Box>
         {isLoading && <CircularProgress />}
         {user?.email &&

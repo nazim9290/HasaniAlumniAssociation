@@ -149,7 +149,7 @@ export default function LoginForm() {
               <Button onClick={handleClickOpen}>Forgot Password ?</Button>
             </Box>
           </Stack>
-          <LoginIcon />
+          {/* <LoginIcon /> */}
           <ResetPassword
             handleClickOpen={handleClickOpen}
             handleClose={handleClose}
