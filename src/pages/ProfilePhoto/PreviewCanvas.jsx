@@ -45,20 +45,28 @@ const PreviewCanvas = ({ image, frame }) => {
 
   return (
     <>
-      <canvas
-        ref={previewRef}
-        width={400}
-        height={400}
-        className="preview-canvas"
-      />
-      {/* Hidden canvas for export */}
-      <canvas
-        ref={exportRef}
-        width={640}
-        height={640}
-        style={{ display: "none" }}
-        id="exportCanvas"
-      />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <canvas
+          ref={previewRef}
+          width={400}
+          height={400}
+          className="preview-canvas"
+        />
+        {/* Hidden canvas for export */}
+        <canvas
+          ref={exportRef}
+          width={640}
+          height={640}
+          style={{ display: "none" }}
+          id="exportCanvas"
+        />
+      </div>
     </>
   );
 };

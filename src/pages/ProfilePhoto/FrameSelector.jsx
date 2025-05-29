@@ -1,7 +1,13 @@
 import React from "react";
 import "./ProfilePhoto.css";
 
-const frames = ["/images/frame1.png", "/images/frame2.png"];
+const frames = [
+  "/images/frame1.png",
+  "/images/frame6.png",
+  "/images/frame7.png",
+  "/images/frame8.png",
+  "/images/frame9.png",
+];
 
 const FrameSelector = ({ onSelectFrame, selected }) => (
   <div className="frame-selector">
